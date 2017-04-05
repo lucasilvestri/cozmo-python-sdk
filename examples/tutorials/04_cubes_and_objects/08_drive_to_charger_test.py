@@ -74,8 +74,10 @@ def drive_to_charger(robot):
 
     if charger:
         # Attempt to drive near to the charger, and then stop.
-        action = robot.go_to_object(charger, distance_mm(65.0))
+        action = robot.go_to_object(charger.Pose.x, distance_mm(65.0))
         action.wait_for_completed()
+        robot.turn_in_place(degrees(180)).wait_for_completed()
+        robot.drive_straight(distance_mm(-140), speed_mmps(50)).wait_for_completed()
         print("Completed action: result = %s" % action)
         print("Done.")
 
